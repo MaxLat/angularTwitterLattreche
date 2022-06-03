@@ -1,0 +1,53 @@
+<div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+  <div fxLayoutAlign="center start">
+    <div fxLayout="column" fxFlex="50%" fxFlex.lt-sm="80%">
+      <mat-card class="mb-10-px" *ngFor="let post of posts">
+        <div fxLayoutAlign="space-between" fxLayout="row">
+
+          <div fxLayout="row">
+            <div>
+              <div mat-card-avatar class="example-header-image"></div>
+            </div>
+
+            <div fxLayout="column">
+              <mat-card-title>{{post.User.username}}</mat-card-title>
+              <mat-card-subtitle>{{post.User.email}}</mat-card-subtitle>
+            </div>
+          </div>
+
+          <div *ngIf="post.isEditable">
+
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button (click)="openEditDialog(post)" mat-menu-item>
+                <mat-icon>dialpad</mat-icon>
+                <span>Editer</span>
+              </button>
+              <button (click)="openRemoveDialog(post.id)" mat-menu-item>
+                <mat-icon>notifications_off</mat-icon>
+                <span>Supprimer</span>
+              </button>
+            </mat-menu>
+
+          </div>
+
+        </div>
+
+        <img mat-card-image *ngIf="post.imageUrl" [src]="post.imageUrl">
+        <mat-card-content> {{post.content}} </mat-card-content>
+        <mat-card-actions fxLayoutAlign="end end">
+          <button mat-raised-button color="primary" type="submit">Like</button>
+        </mat-card-actions>
+      </mat-card>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div>
+          <mat-spinner *ngIf="showSpinner"></mat-spinner>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+

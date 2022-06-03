@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.full-height { height: calc(100% - 65px); }
+
+.card-title {
+    text-align: center;
+}
+
+.warn-snackbar {
+    background: red;
+    color: white;
+}
+
+.success-snackbar {
+    background: green;
+    color: white;
+}
+
+.mt-50-px {
+    margin-top: 50px;
+}
+
+.mb-50-px {
+    margin-bottom: 50px;
+}
+
+.mb-10-px {
+    margin-bottom: 10px;
+}

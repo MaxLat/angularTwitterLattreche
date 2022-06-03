@@ -1,0 +1,22 @@
+<div class="mb-50-px" fxLayoutAlign="center start">
+    <mat-card fxFlex="50%" fxFlex.lt-sm="80%">
+      <mat-card-title class="card-title">Rediger</mat-card-title>
+      <form [formGroup]="draftForm" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <div fxLayout="column">
+            <mat-form-field appearance="fill">
+              <mat-label>contenu</mat-label>
+              <input formControlName="content" matInput />
+            </mat-form-field>
+          </div>
+
+          <app-file-upload [formGroup]="draftForm" ></app-file-upload>
+
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="end end" >
+          <button mat-raised-button color="primary" type="submit" >Valider</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+  

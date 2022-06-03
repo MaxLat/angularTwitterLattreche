@@ -1,0 +1,13 @@
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <h2 mat-dialog-title>Editer votre article :</h2>
+  <mat-dialog-content class="mat-typography">
+    <mat-form-field appearance="fill">
+      <mat-label>contenu</mat-label>
+      <input formControlName="content" matInput />
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Annuler</button>
+    <button mat-button color="primary" type="submit">Editer</button>
+  </mat-dialog-actions>
+</form>

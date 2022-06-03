@@ -1,0 +1,24 @@
+<div class="full-height" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card fxFlex="50%" fxFlex.lt-sm="80%">
+      <mat-card-title class="card-title">Se connecter</mat-card-title>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <div fxLayout="column">
+            <mat-form-field appearance="fill">
+              <mat-label>email</mat-label>
+              <input formControlName="email" matInput />
+            </mat-form-field>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>mot de passe</mat-label>
+              <input formControlName="password" matInput />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="end end" >
+          <button mat-raised-button color="primary" type="submit" >Valider</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+  

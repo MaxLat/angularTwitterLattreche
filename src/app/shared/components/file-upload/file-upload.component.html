@@ -1,0 +1,24 @@
+<form [formGroup]="formGroup">
+  <input
+    type="file"
+    class="file-input"
+    (change)="onFileSelected($event)"
+    #fileUpload
+  />
+
+  <div class="file-upload">
+    {{ fileName || "" }}
+
+    <button
+      mat-mini-fab
+      color="primary"
+      class="upload-btn"
+      (click)="fileUpload.click()"
+    >
+      <mat-icon>attach_file</mat-icon>
+    </button>
+  </div>
+
+  <img *ngIf="preview && preview !== null" mat-card-image [src]="preview" >
+
+</form>
