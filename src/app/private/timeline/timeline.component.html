@@ -5,7 +5,7 @@
         <div fxLayoutAlign="space-between" fxLayout="row">
 
           <div fxLayout="row">
-            <div>
+            <div class="mr-10-px">
               <div mat-card-avatar class="example-header-image"></div>
             </div>
 
@@ -22,11 +22,11 @@
             </button>
             <mat-menu #menu="matMenu">
               <button (click)="openEditDialog(post)" mat-menu-item>
-                <mat-icon>dialpad</mat-icon>
+                <mat-icon>edit</mat-icon>
                 <span>Editer</span>
               </button>
               <button (click)="openRemoveDialog(post.id)" mat-menu-item>
-                <mat-icon>notifications_off</mat-icon>
+                <mat-icon>delete</mat-icon>
                 <span>Supprimer</span>
               </button>
             </mat-menu>

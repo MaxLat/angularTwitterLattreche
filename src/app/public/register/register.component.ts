@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/signin']);
 
     },
-    error: (err : HttpErrorResponse) => this._snackBarService.showErrorSnackBar(err.error.error),
+    error: (err : HttpErrorResponse) => this._snackBarService.showErrorSnackBar(err.error),
     complete: () => console.log('Observer got a complete notification'),
   };
 

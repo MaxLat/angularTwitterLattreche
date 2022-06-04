@@ -1,21 +1,38 @@
-<p>
-    <mat-toolbar color="primary">
-      <button [matMenuTriggerFor]="menu" mat-button >
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>My Appppp</span>
-      <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
-      </button>
-    </mat-toolbar>
-
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <a routerLink="/home" ><span>Twitter</span></a>
+    <span class="example-fill-remaining-space"></span>
+    <span class="align-center"></span>
+    <span class="example-spacer"></span>
+    <ng-container *ngIf="!isLogin">
+      <a fxHide fxShow.gt-sm routerLink="/signin"
+        ><button mat-button>Se connecter</button></a
+      >
+      <a fxHide fxShow.gt-sm routerLink="/signup"
+        ><button mat-button>S'inscrire</button></a
+      >
+    </ng-container>
+    <button fxHide fxShow.gt-sm (click)="onLogout()" *ngIf="isLogin" mat-button>
+      Se déconnecter
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" fxHide fxShow.lt-md>
+      <mat-icon>more_vert</mat-icon>
+    </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-      </mat-menu>
-
-  </p>
+      <ng-container *ngIf="!isLogin">
+        <button mat-menu-item>
+          <mat-icon>login</mat-icon>
+          <a routerLink="/signin"><span>Se connecter</span></a>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>person_add</mat-icon>
+          <a routerLink="/signup"><span>S'inscrire</span></a>
+        </button>
+      </ng-container>
+      <button (click)="onLogout()" *ngIf="isLogin" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Se déconnecter</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row></mat-toolbar
+>

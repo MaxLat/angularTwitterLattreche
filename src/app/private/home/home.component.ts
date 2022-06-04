@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   typeTimeline : string = TEN_PREVIOUS_POST;
 
   ngOnInit(): void {
+    this._postsService.reloadPost.subscribe({next : (result : any) => result ?  this.loadInitPost() : null})
     this.loadInitPost();
   }
 

@@ -16,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { AuthService } from './shared/services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import { SnackBarService } from './shared/services/snackbar.service';
 import { LoginComponent } from './public/login/login.component';
 import { HomeComponent } from './private/home/home.component';
@@ -69,7 +69,9 @@ import { FileUploadComponent } from './shared/components/file-upload/file-upload
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }],
+    },
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2000}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

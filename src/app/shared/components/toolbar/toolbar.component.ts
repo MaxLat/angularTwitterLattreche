@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _authService : AuthService) { }
 
+  isLogin : boolean = false;
   ngOnInit(): void {
+
+    const observer = {
+      next : (isLogin : any) => this.isLogin = isLogin,
+    }
+
+    this._authService.isLoginSubject.subscribe(observer);
+  }
+
+  onLogout() : void {
+    this._authService.goBackToLogin();
   }
 
 }

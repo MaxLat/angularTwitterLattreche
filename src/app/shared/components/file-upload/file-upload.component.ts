@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
@@ -10,18 +9,16 @@ import { environment } from 'src/environments/environment';
 })
 export class FileUploadComponent {
   
+  @ViewChild('fileUpload') fileUploadButton! : ElementRef;
   @Input() formGroup! : FormGroup
   fileName = '';
   preview : string | null = null
   environment = environment.api
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   onFileSelected(event : any) {
     const file: File = event.target.files[0];
-
-    console.log(file)
-
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -31,5 +28,11 @@ export class FileUploadComponent {
       this.fileName = file.name;
       this.formGroup.get('img')?.setValue(file);
     }
+  }
+
+  clearUploader() : void {
+    this.fileUploadButton.nativeElement.value = null;
+    this.preview = null;
+    this.fileName = '';
   }
 }

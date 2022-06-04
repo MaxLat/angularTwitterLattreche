@@ -30,3 +30,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mb-10-px {
     margin-bottom: 10px;
 }
+
+.mr-10-px {
+    margin-right: 10px;
+}
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
