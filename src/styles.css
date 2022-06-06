@@ -5,7 +5,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .full-height { height: calc(100% - 65px); }
 
-.card-title {
+.text-align-center {
     text-align: center;
 }
 
@@ -38,4 +38,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 a, a:hover, a:focus, a:active {
     text-decoration: none;
     color: inherit;
+}
+
+.color-white {
+    color: white;
+}
+
+.width-100-percent{
+    width: 100%;
 }

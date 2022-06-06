@@ -1,22 +1,26 @@
 <div class="full-height" fxLayout="row" fxLayoutAlign="center center">
   <mat-card fxFlex="50%" fxFlex.lt-sm="80%">
-    <mat-card-title class="card-title">S'inscrire</mat-card-title>
+    <mat-card-title class="text-align-center">S'inscrire</mat-card-title>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
         <div fxLayout="column">
-          <mat-form-field appearance="fill">
+          <mat-form-field class="mb-10-px" appearance="fill">
             <mat-label>email</mat-label>
             <input formControlName="email" matInput />
+            <mat-error *ngIf="registerForm.get('email')?.hasError('required')">l'email est requis</mat-error>
+            <mat-error *ngIf="registerForm.get('email')?.hasError('email')">veuillez rentrer une adresse email valide</mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field class="mb-10-px" appearance="fill">
             <mat-label>nom d'utilisateur</mat-label>
             <input formControlName="username" matInput />
+            <mat-error *ngIf="registerForm.get('username')?.hasError('required')">le nom d'utilisateur est requis</mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field class="mb-10-px" appearance="fill">
             <mat-label>mot de passe</mat-label>
-            <input formControlName="password" matInput />
+            <input type="password" formControlName="password" matInput />
+            <mat-error *ngIf="registerForm.get('password')?.hasError('required')">le mot de passe est requis</mat-error>
           </mat-form-field>
         </div>
       </mat-card-content>

@@ -17,6 +17,14 @@
     >
       <mat-icon>attach_file</mat-icon>
     </button>
+
+    <button *ngIf="preview && preview !== null"
+      mat-mini-fab
+      color="warn"
+      (click)="clearUploader()"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
 
   <img *ngIf="preview && preview !== null" mat-card-image [src]="preview" >

@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SnackBarService } from 'src/app/shared/services/snackbar.service';
 
@@ -13,6 +14,7 @@ import { SnackBarService } from 'src/app/shared/services/snackbar.service';
 export class RegisterComponent implements OnInit {
 
   registerForm! : FormGroup;
+  subscription : Subscription = new Subscription();
 
   observer = {
     next: (x: any)  => {
@@ -22,7 +24,6 @@ export class RegisterComponent implements OnInit {
 
     },
     error: (err : HttpErrorResponse) => this._snackBarService.showErrorSnackBar(err.error),
-    complete: () => console.log('Observer got a complete notification'),
   };
 
   constructor(private fb : FormBuilder, private _authService : AuthService, private _snackBarService : SnackBarService, private router : Router ) { }
@@ -36,7 +37,7 @@ export class RegisterComponent implements OnInit {
   
     this.registerForm = this.fb.group(
       {
-        email : ['', Validators.required],
+        email : ['', [Validators.required,Validators.email]],
         username : ['',Validators.required],
         password : ['', Validators.required]
       }
@@ -49,8 +50,12 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this._authService.signup(this.registerForm.value).subscribe(this.observer)
+    this.subscription.add(this._authService.signup(this.registerForm.value).subscribe(this.observer));
 
+  }
+
+  ngOnDestroy() : void {
+    this.subscription.unsubscribe();
   }
 
 }

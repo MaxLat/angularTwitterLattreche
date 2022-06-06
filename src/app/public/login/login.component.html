@@ -1,17 +1,20 @@
 <div class="full-height" fxLayout="row" fxLayoutAlign="center center">
     <mat-card fxFlex="50%" fxFlex.lt-sm="80%">
-      <mat-card-title class="card-title">Se connecter</mat-card-title>
+      <mat-card-title class="text-align-center">Se connecter</mat-card-title>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-card-content>
           <div fxLayout="column">
-            <mat-form-field appearance="fill">
+            <mat-form-field class="mb-10-px" appearance="fill">
               <mat-label>email</mat-label>
               <input formControlName="email" matInput />
+              <mat-error *ngIf="loginForm.get('email')?.hasError('required')">l'email est requis</mat-error>
+              <mat-error *ngIf="loginForm.get('email')?.hasError('email')">veuillez rentrer une adresse email valide</mat-error>
             </mat-form-field>
   
-            <mat-form-field appearance="fill">
+            <mat-form-field class="mb-10-px" appearance="fill">
               <mat-label>mot de passe</mat-label>
-              <input formControlName="password" matInput />
+              <input type="password" formControlName="password" matInput />
+              <mat-error *ngIf="loginForm.get('password')?.hasError('required')">le mot de passe est requis</mat-error>
             </mat-form-field>
           </div>
         </mat-card-content>

@@ -30,6 +30,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { RemoveDialogComponent } from './shared/components/remove-dialog/remove-dialog.component';
 import { EditDialogComponent } from './shared/components/edit-dialog/edit-dialog.component';
 import { FileUploadComponent } from './shared/components/file-upload/file-upload.component';
+import { IndexComponent } from './public/index/index.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FileUploadComponent } from './shared/components/file-upload/file-upload
     RemoveDialogComponent,
     EditDialogComponent,
     FileUploadComponent,
+    IndexComponent,
   ],
   imports: [
     BrowserModule,

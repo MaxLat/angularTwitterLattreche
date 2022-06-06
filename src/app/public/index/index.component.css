@@ -1,0 +1,13 @@
+.purple-background{
+    background: #673ab7;
+}
+
+.full-size {
+    height: 100%;
+}
+
+.elon-musk-img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+  }

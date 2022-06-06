@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { EditDialogComponent } from 'src/app/shared/components/edit-dialog/edit-dialog.component';
 import { RemoveDialogComponent } from 'src/app/shared/components/remove-dialog/remove-dialog.component';
 import { POST_FROM_SPECIFIC_USER, TEN_PREVIOUS_POST } from 'src/app/shared/Constant';
+import { Post } from 'src/app/shared/interface/post.interface';
 import { PostsService } from 'src/app/shared/services/posts.service';
 import { SnackBarService } from 'src/app/shared/services/snackbar.service';
 
@@ -12,7 +14,7 @@ import { SnackBarService } from 'src/app/shared/services/snackbar.service';
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.css'],
 })
-export class TimelineComponent implements OnInit {
+export class TimelineComponent implements OnInit, OnDestroy {
 
   @Input() posts : Array<any> = [];
   @Input() typeTimeline : string ='';
@@ -20,7 +22,8 @@ export class TimelineComponent implements OnInit {
 
   notEmptyPost : boolean = true;
   notscrolly : boolean = true;
-  showSpinner : boolean= false
+  showSpinner : boolean= false;
+  subscription : Subscription = new Subscription();
 
   constructor(
     private _snackbarService: SnackBarService,
@@ -40,7 +43,7 @@ export class TimelineComponent implements OnInit {
       username : null
     }
     const nextPostObserver = {
-      next: (posts: any) => {
+    next: (posts: Array<Post>) => {
         if(posts.length === 0){
           
           this.notEmptyPost === false
@@ -56,11 +59,11 @@ export class TimelineComponent implements OnInit {
 
     switch (this.typeTimeline) {
       case TEN_PREVIOUS_POST:
-        this._postsService.getTenPreviousPosts(formData).subscribe(nextPostObserver);
+        this.subscription.add(this._postsService.getTenPreviousPosts(formData).subscribe(nextPostObserver));
         break;
       case POST_FROM_SPECIFIC_USER : 
         formData.username = this.username
-        this._postsService.getPostFromSpecificUser(formData).subscribe(nextPostObserver);
+        this.subscription.add(this._postsService.getPostFromSpecificUser(formData).subscribe(nextPostObserver));
         break;
       default:
         break;
@@ -75,17 +78,15 @@ export class TimelineComponent implements OnInit {
     }
   }
 
-  openEditDialog(post : any) : void {
-    console.log(post)
+  openEditDialog(post : Post) : void {
     const dialogRef = this.dialog.open(EditDialogComponent, {restoreFocus: false , data : { post : post }});
     
-    dialogRef.afterClosed().subscribe((postUpdated : any) => {
+    dialogRef.afterClosed().subscribe((postUpdated : Post) => {
 
       const observer = {
         next: (message: string) => {
-
-          post.content = postUpdated.content
           this._snackbarService.showSuccessSnackBar(message);
+          this._postsService.reloadPost.next(true);
         },
         error: (err: HttpErrorResponse) =>
           this._snackbarService.showErrorSnackBar(err.error),
@@ -93,7 +94,7 @@ export class TimelineComponent implements OnInit {
 
 
       if(postUpdated){
-        this._postsService.updatePost(postUpdated).subscribe(observer)
+       this.subscription.add(this._postsService.updatePost(postUpdated).subscribe(observer))
       }
 
     });
@@ -125,12 +126,19 @@ export class TimelineComponent implements OnInit {
           this._snackbarService.showErrorSnackBar(err.error),
       };
 
-
       if(result){
-        this._postsService.deletePost(postId).subscribe(observer)
+        this.subscription.add(this._postsService.deletePost(postId).subscribe(observer))
       }
 
     });
+  }
+
+  onClickLike() : void {
+    this._snackbarService.showSuccessSnackBar("Désolé pas eu le temps de le coder :( ")
+  }
+
+  ngOnDestroy() : void {
+    this.subscription.unsubscribe();
   }
 
 }

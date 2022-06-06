@@ -19,7 +19,8 @@ export class EditDialogComponent implements OnInit {
   initForm() : void{
 
     this.postForm = this.fb.group({
-      content : [this.data.post.content,Validators.required]
+      content : [this.data.post.content,Validators.required],
+      img : [this.data.post.imageUrl]
     });
 
   }
@@ -30,12 +31,19 @@ export class EditDialogComponent implements OnInit {
       return;
     }
 
-    const postUpdated = {
-      content : this.postForm.get('content')?.value,
-      id : this.data.post.id
+    const formData = new FormData();
+    if(this.postForm.get('img')?.value && this.postForm.get('img')?.value instanceof File){
+      formData.append('img',this.postForm.get('img')?.value);
     }
-    
-    this.dialogRef.close(postUpdated)
+
+    if(this.postForm.get('img')?.value && typeof this.postForm.get('img')?.value === 'string' ){
+      formData.append('imageUrl',this.postForm.get('img')?.value);
+    }
+
+    formData.append('content',this.postForm.get('content')?.value);
+    formData.append('id',this.data.post.id);
+
+    this.dialogRef.close(formData)
 
   }
 

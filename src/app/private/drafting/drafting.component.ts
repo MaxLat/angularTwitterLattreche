@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
 import { DraftingService } from 'src/app/shared/services/drafting.service';
 import { PostsService } from 'src/app/shared/services/posts.service';
@@ -12,11 +13,12 @@ import { SnackBarService } from 'src/app/shared/services/snackbar.service';
   templateUrl: './drafting.component.html',
   styleUrls: ['./drafting.component.css']
 })
-export class DraftingComponent implements OnInit {
+export class DraftingComponent implements OnInit, OnDestroy {
 
   draftForm! : FormGroup;
   ngForm! : any 
-  @ViewChild('fileUpload') fileUpload! : FileUploadComponent
+  @ViewChild('fileUpload') fileUpload! : FileUploadComponent;
+  subscription : Subscription = new Subscription();
 
   observer = {
     next: (result: any)  => {
@@ -54,9 +56,13 @@ export class DraftingComponent implements OnInit {
     const formData = new FormData();
     formData.append("content",this.draftForm.get('content')?.value)
     formData.append('img',this.draftForm.get('img')?.value)
-    this._draftingService.createPost(formData).subscribe(this.observer)
+    this.subscription.add(this._draftingService.createPost(formData).subscribe(this.observer))
     this.ngForm = ngForm;
 
+  }
+
+  ngOnDestroy() : void {
+    this.subscription.unsubscribe();
   }
 
 }

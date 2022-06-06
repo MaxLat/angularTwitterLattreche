@@ -1,12 +1,13 @@
 <div class="mb-50-px" fxLayoutAlign="center start">
     <mat-card fxFlex="50%" fxFlex.lt-sm="80%">
-      <mat-card-title class="card-title">Rédiger</mat-card-title>
+      <mat-card-title class="text-align-center">Rédiger</mat-card-title>
       <form #formDirective="ngForm" [formGroup]="draftForm" (ngSubmit)="onSubmit(formDirective)">
         <mat-card-content>
           <div fxLayout="column">
-            <mat-form-field appearance="fill">
+            <mat-form-field class="mb-10-px" appearance="fill">
               <mat-label>contenu</mat-label>
               <input formControlName="content" matInput />
+              <mat-error *ngIf="draftForm.get('content')?.hasError('required')">Votre article est vide</mat-error>
             </mat-form-field>
           </div>
 
