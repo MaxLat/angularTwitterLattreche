@@ -1,4 +1,4 @@
 .example-header-image {
-    background-image: url('/assets/avatar-profil.png');
+    background-image: url('./../../../assets/avatarprofil.png');
     background-size: cover;
   }

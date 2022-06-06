@@ -36,6 +36,10 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   loadNextPost(): void {
 
+    if(this.posts.length === 0){
+      this.showSpinner = false
+      return
+    }
     const lastPost = this.posts[this.posts.length - 1];
     const lastPostUpdateDate = lastPost.updatedAt;
     let formData : { previousDate : string , username : string | null} =  {
